@@ -8,13 +8,13 @@
 <header class="header">
             <div class="overlay"></div>
             <video control muted playsinline="playsinline" autoplay="autoplay"  id="myVideo">
-              <source src="./img-vid/witcher.mp4" type="video/mp4">
+              <source src="./Upload/video/witcher.mp4" type="video/mp4">
             </video>
             <div class="container  w-100">
               <div class="d-flex  w-100">
                     <div class="">
                             <div class="">
-                                    <img src="./img-vid/Witcher.webp" class="rounded float-left imt " alt="...">
+                                    <img src="./Upload/image/Witcher.webp" class="rounded float-left imt " alt="...">
                                     <p class="fonts title">Regardez la saison 1 <button type="button"  class="btn ml-1 bt1 ">18+</button> 
                                         <span style="font-size: 2em;" data-toggle="tooltip" data-placement="top" title="Audio Description is available for some episodes" class="mt-3">
                                                 <i class="fas fa-ad ml-3 "></i>
@@ -126,6 +126,6 @@
 <!--   'prenom'=>'cesaire'. Pour y accéder on appelle $_GET['nom'] nous retourne 'desaulle'-->
 
 
-<?php require_once 'inc/footer.php' ?>
+
 
 

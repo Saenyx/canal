@@ -53,7 +53,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-8 col-sm-6 col-xs-12">
-            <p class="copyright-text"> &copy; 1997-2022 Netflix, inc "made by Lucas".
+            <p class="copyright-text"> &copy; 1997-2022 Netflix, inc "made by Lucas/Ombeline/Antoine/Perrine/Ines".
             </p>
           </div>
 
