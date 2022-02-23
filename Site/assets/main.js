@@ -20,3 +20,11 @@ function toggleMute() {
           $(this).text('Unmute');
         }
     });
+
+    var pauseBtn = document.getElementById("pause"),
+    tl = new TimelineMax();
+
+    pauseBtn.onclick = function() {
+        tl.paused(!tl.paused());
+        pauseBtn.innerHTML = tl.paused() ? "play" : "pause";
+      }

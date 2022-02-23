@@ -1,97 +1,71 @@
+<!-- PHP page init.php: -->
+<!-- Associé au dossier security -->
+
+
 <?php
 
-$pdo = new PDO('mysql:host=localhost;dbname=site_ecommerce', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING, PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+$pdo= new PDO('mysql:host=localhost;dbname=site_streaming', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING, PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+//ICI: changer password si vous n'êtes pas sur Mac pour ''.
 
-// initiation de la session
 session_start();
 
+define('SITE', '/01-Cours/Site/'); // ICI: indiquer votre propre chemin d'acces
 
-// chemin du site
-define('SITE', '/01-Cours/Site/');
+$contenu='';
 
-// variable d'affichage
-
-$contenu = '';
-
-function debug($var)
-{
+function debug($var) {
     echo '<pre>';
     print_r($var);
     echo '</pre>';
 }
 
+//--------
+// Security: 
+//--------
 
-function executeRequete($requete, $param = array())
-{
-    // le parametre $requete recoit une requete sql. Le parametre $param recoit un tableau avec les marqueurs associés à leur valeur
-
+//  ExecuteRequete():
+function executeRequete($requete, $param=array()){
     $order=false;
-
-    // Echappement des données avec htmlspecialchars() :
     foreach ($param as $marqueur => $valeur) {
-
         if ($marqueur==':amount'):
-
           $order=true;
         endif;
-            $param[$marqueur] = htmlspecialchars($valeur);
+        $param[$marqueur] = htmlspecialchars($valeur);
+    } 
+    global $pdo; 
+    $resultat=$pdo->prepare($requete); 
+    $success=$resultat->execute($param); 
 
-        // on transforme les chevrons en entité html qui neutralise les balises <style> et <script> eventuellement injectées en formulaire. Evite les failles XSS et CSS
-    }
-
-    global $pdo; // permet d'acceder à la variable $pdo de manière globale
-
-    $resultat = $pdo->prepare($requete);// on prepare la requete reçu
-
-          //die(var_dump($id));
-    $success = $resultat->execute($param);// on execute en lui passant le tableau des marqueurs associés à leur valeur
     if ($order):
         $id=$pdo->lastInsertId();
-
     endif;
-    // execute() renvoie toujours un boulean: true en cas de succes et false en cas d'echec
 
-    if ($success) { // si $success == true donc que la requete a fonctionné
-     if ($order):
-        return $id;
-     else:
-         return $resultat;
-     endif;
-
+    if ($success){ 
+        if ($order):
+            return $id;
+        else:
+            return $resultat;
+        endif;
     } else {
-
-        return false;
-
+        return false; 
     }
+} // fin function executeRequete
 
-
-}
-
-
+// connect()
 function connect(){
-
     if(isset($_SESSION['user'])):
         return true;
     else:
         return false;
     endif;
+} //fin connect
 
-}
-
+// admin()
 function admin(){
-
-    if(connect() && $_SESSION['user']['roles']== 'ROLE_ADMIN'):
-       return true;
-    else:
+    if(connect() && $_SESSION['user']['roles']=='ROLE_ADMIN'):
+        return true; 
+    else: 
         return false;
-    endif;
-
-}
-
-if (!isset($_SESSION['cart'])):
-    $_SESSION['cart']=[];
-endif;
-
-require_once 'cart.php';
-
+    endif;     
+} // fin admin
 

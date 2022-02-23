@@ -1,114 +1,117 @@
-<?php
- require_once '../inc/header.php';
-
-if (connect()):
-    header('location:../');
-    exit();
-endif;
+<!-- Header security -->
 
 
+<?php require_once '../inc/init.php';   ?>
 
+<!doctype html>
+
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>STREAMLABS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.1.3/lux/bootstrap.min.css"
+          integrity="sha512-B5sIrmt97CGoPUHgazLWO0fKVVbtXgGIOayWsbp9Z5aq4DJVATpOftE/sTTL27cu+QOqpI/jpt6tldZ4SwFDZw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="<?= SITE.'css/style.css'; ?>">
+    <link rel="icon" type="image/png" href="./img-vid/streamlabs-obs.png" sizes="16x16" />
+</head>
+<body>
+
+
+
+    
+<?php if (isset($_SESSION['messages']) && !empty($_SESSION['messages'])):
+  foreach ($_SESSION['messages'] as $type => $mess):
+    foreach ($mess as $key => $message):?>
+
+      <div class="alert alert-<?= $type; ?> text-center">
+        <p><?= $message; ?></p>
+      </div>
+      <?php unset($_SESSION['messages'][$type][$key]); ?>
+    <?php endforeach; 
+  endforeach; 
+endif; ?>
+
+
+
+
+<!-- PHP page login.php -->
+
+<?php 
+
+
+// Indentification à partir du mail: 
 if(!empty($_POST)):
+    $resultat=executeRequete(" SELECT * FROM user WHERE email=:email", 
+    array(':email'=>$_POST['email']
+    ));
+    
+    // session existante: 
+    if($resultat->rowCount() == 1):
+        $user=$resultat->fetch(PDO::FETCH_ASSOC);
 
-     $resultat=executeRequete("SELECT * FROM user WHERE email=:email",array(
-             ':email'=>$_POST['email']
-     ));
+        // verif mdp: 
+        if(password_verify($_POST['password'],$user['password'])):
+            $_SESSION['user']=$user;
+            $_SESSION['messages']['success'][]="Vous êtes à présent connecté.e";
+            header('location:../'); 
+            exit();
+        else: 
+            $_SESSION['messages']['danger'][]="Erreur sur le mot de passe";
+            header('location:./login.php');
+            exit();
+        endif; // fin verif mdp
 
+    //la session n'existe pas: 
+    elseif($resultat->rowCount() == 0):
+        $_SESSION['messages']['danger'][]="Il n'existe pas de compte relié à cette adresse mail";
+        header('location:./login.php');
+        exit();
 
-     if ($resultat->rowCount() == 1):
+    // une erreur est survenue 
+    elseif($resultat->rowCount() > 1):
+        $_SESSION['messages']['danger'][]="Une erreur est survenue; merci de contacter l'administrateurice du site";
+        header('location:./login.php'); 
+        exit();
 
-         $user=$resultat->fetch(PDO::FETCH_ASSOC);
-
-         if(password_verify($_POST['password'], $user['password'])):
-
-
-
-
-              $_SESSION['user']=$user;
-              $_SESSION['messages']['success'][]="Bienvenue ".$user['nickname'];
-
-
-              header('location:../');
-              exit();
-
-         else:
-             $_SESSION['messages']['danger'][]="Erreur sur le mot de passe";
-
-             header('location:./login.php');
-             exit();
-
-         endif;
-
-     elseif ($resultat->rowCount() == 0):
-
-         $_SESSION['messages']['danger'][]="Aucun compte n'est existant à cette adresse mail";
-
-         header('location:./login.php');
-         exit();
-
-
-     elseif ($resultat->rowCount() > 1):
-         $_SESSION['messages']['danger'][]="Une erreur est survenue, merci de contacter l'administrateur du site";
-
-         header('location:./login.php');
-         exit();
-
-     endif;
-
-
-
- endif;
-
-
-
-
-
-
-
-
-
-
+    endif; //fin if($resultat->rowCount() == 1):
+endif; //fin ident. mail
 
 ?>
 
+<body>
+	<div id="particles-js"></div>
+	  <body class="register">
+		  <div class="container">
+			  <div class="register-container-wrapper clearfix">
+				  <div class="welcome"><strong>Sign In :</strong></div>
+				  <form method="post" action="" class="form-horizontal register-form">
+					  <div class="form-group relative email">
+						<input value="" name="email" id="inputEmail" class="form-control input-lg" type="email" placeholder="Email">
+					  </div>
+					  <br>
+					  <div class="form-group relative password">
+						<input name="password" id="inputPassword" class="form-control input-lg" type="password" placeholder="Password">
+					  </div>
+					  <div class="checkbox pull-right">
+						<label> <a class="forget" href="./forgot_password.php" title="forget">Forgot your password</a> </label>
+					  </div>
+					  <br>
+					  <div class="form-group">
+						<button type="submit" class="btn btn-success btn-lg btn-block">Log In</button>
+					  </div>
+				  </form>
+			  </div>
+		  </div>
+    </body>
+  </div>
+</body>
 
-
-<form method="post" action="">
-
-    <section class="vh-100 bg-image" style="background-color: #C7C8C9;">
-        <div class="mask d-flex align-items-center h-100 gradient-custom-3">
-            <div class="container h-100">
-                <div class="row d-flex justify-content-center align-items-center h-100">
-                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-                        <div class="card" style="border-radius: 15px;">
-                            <div class="card-body p-5">
-                                <h2 class="text-uppercase text-center mb-5">Connexion</h2>
-
-                                <label for="inputEmail">Email</label>
-                                <input type="email" value="" name="email" id="inputEmail"
-                                       class="form-control" autocomplete="email" required autofocus>
-                                <label for="inputPassword" class="mt-3">Mot de passe</label>
-                                <input type="password" name="password" id="inputPassword" class="form-control"
-                                       autocomplete="current-password" required>
-
-
-                                <button class="btn mb-2 mt-3 mb-md-0 btn-outline-secondary btn-block" type="submit">
-                                    Se connecter
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </section>
-</form>
-
-
-
-
-
+</html>
 
 
 <?php  require_once '../inc/footer.php'?>

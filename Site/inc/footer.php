@@ -13,38 +13,32 @@
         <div class="row">
 
           <!-- PREMIERE COL !-->
-          <div class="col-xs-6 col-md-3">
-            <h6>Categories</h6>
+          <div class="col-xs-6 col-md-4">
             <ul class="footer-links">
-              <li><a href="http://scanfcode.com/category/c-language/">C</a></li>
-              <li><a href="http://scanfcode.com/category/front-end-development/">UI Design</a></li>
-              <li><a href="http://scanfcode.com/category/back-end-development/">PHP</a></li>
-              <li><a href="http://scanfcode.com/category/java-programming-language/">Java</a></li>
-              <li><a href="http://scanfcode.com/category/android/">Android</a></li>
-              <li><a href="http://scanfcode.com/category/templates/">Templates</a></li>
+              <li><a href="http://scanfcode.com/category/c-language/">Audio et sous titre</a></li>
+              <li><a href="http://scanfcode.com/category/front-end-development/">Presse</a></li>
+              <li><a href="http://scanfcode.com/category/back-end-development/">Confidentialitée</a></li>
+              <li><a href="http://scanfcode.com/category/java-programming-language/">Nous contacter</a></li>
             </ul>
           </div>
          <!-- SECOND COL !-->
           <div class="col-xs-6 col-md-3">
-            <h6>Quick Links</h6>
+
             <ul class="footer-links">
-              <li><a href="http://scanfcode.com/about/">About Us</a></li>
-              <li><a href="http://scanfcode.com/contact/">Contact Us</a></li>
-              <li><a href="http://scanfcode.com/contribute-at-scanfcode/">Contribute</a></li>
-              <li><a href="http://scanfcode.com/privacy-policy/">Privacy Policy</a></li>
-              <li><a href="http://scanfcode.com/sitemap/">Sitemap</a></li>
+              <li><a href="http://scanfcode.com/about/">Audiodescription</a></li>
+              <li><a href="http://scanfcode.com/contact/">Relations investisseurs</a></li>
+              <li><a href="http://scanfcode.com/contribute-at-scanfcode/">Informations légales</a></li>
+            
             </ul>
           </div>
           <!-- TROISIEME COL !-->
           <div class="col-xs-6 col-md-3">
-            <h6>Categories</h6>
             <ul class="footer-links">
-              <li><a href="http://scanfcode.com/category/c-language/">C</a></li>
-              <li><a href="http://scanfcode.com/category/front-end-development/">UI Design</a></li>
-              <li><a href="http://scanfcode.com/category/back-end-development/">PHP</a></li>
-              <li><a href="http://scanfcode.com/category/java-programming-language/">Java</a></li>
-              <li><a href="http://scanfcode.com/category/android/">Android</a></li>
-              <li><a href="http://scanfcode.com/category/templates/">Templates</a></li>
+              <li><a href="">Merci</a></li>
+              <li><a href="">Cesaire</a></li>
+              <li><a href="">du</a></li>
+              <li><a href="">Cours</a></li>
+              
             </ul>
           </div>
         </div>
@@ -53,7 +47,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-8 col-sm-6 col-xs-12">
-            <p class="copyright-text"> &copy; 1997-2022 Netflix, inc "made by Lucas".
+            <p class="copyright-text"> &copy; 1997-2022 From Netflix design , inc "made by Lucas/Ombeline/Antoine/Perrine/Ines".
             </p>
           </div>
 
